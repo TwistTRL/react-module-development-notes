@@ -57,28 +57,28 @@ react-componentX
     "react": "^16.8.6"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
     "gh-pages": "^2.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "^2.1.8"
+    "react-scripts": "^3.0.1"
   },
   "babel": {
     "presets": [
-      "react",
-      "env",
-      "stage-0"
+      "@babel/preset-react",
+      "@babel/preset-env"
     ]
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "dist": "export NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src/lib --out-dir dist --copy-files",
+    "install": "npm run dist",
     "test": "react-scripts build",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
@@ -97,10 +97,9 @@ To further highlight the changes we made from default template created by `creat
 ```
   "dependencies": {
     "react": "^16.8.6",
-    "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "^2.1.8"
+    "react-scripts": "^3.0.1"
   },
 ```
 * To
@@ -109,20 +108,20 @@ To further highlight the changes we made from default template created by `creat
     "____": "_____"
   },
   "peerDependencies": {
-    "proptypes": "^1.1.0",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
     "gh-pages": "^2.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "^2.1.8"
+    "react-scripts": "^3.0.1"
   },
 ```
 
@@ -130,11 +129,13 @@ This change reflect that:
 1) We are no longer creating a stand-alone react app. Instead, we are creating a module that work in a parent react application, and hence part of the dependencies have been moved to `peerDependencies`.
 2) However, during development, we still need to fire up a test web application and hence much of the original dependencies are now also moved to `devDependencies`.
 3) Additional tools, such as babel is installed for transpiling; `gh-pages` is installed for building github pages.
+* Note: babel dependencies changed from the older v6.x to v7.x. State presets has been removed. Use appropriate babel setting if your project requires. This settting with only `preset-env` and `preset-react`, should be able to accomodate most use cases.
 
 ## Add npm script
 Add the following lines to 
 ```
     "dist": "export NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src/lib --out-dir dist --copy-files",
+    "install": "npm run dist",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
 ```
@@ -144,24 +145,22 @@ npm run dist     # Build `/dist` folder for distribution
 npm run predeploy   # Equivalent to `npm run build`
 npm run deploy   # Use gh-pages to push a second github.io branch to the repository
 ```
+In addition `npm install` is now hooked with `npm run dist`. You can count on the dist script to run when you run `npm install` inside the package, or when you install this package from another project. In other word, the dist script automatically transpiles your package when installed.
 As you can probably tell, everything in `src/lib` is transpiled and moved to `dist` folder for distribution. Therefore, you should write you components in `src/lib`, but still you can write react app outside of `src/lib`. The react app can import components from `src/lib` and run as usual using `npm start` and deploy as usual using `npm deploy`.
-
-TODO: Can we replace build script with our dist script?
 
 ## Set up babel
 ```
   "babel": {
     "presets": [
-      "react",
-      "env",
-      "stage-0"
+      "@babel/preset-react",
+      "@babel/preset-env"
     ]
   },
 ```
-Non-standard js languages, such as jsx, or the latest ES 20xx may not be supported widely.
+Non-standard js languages, such as jsx, or the latest ES 20xx may not be supported widely. These babel setting support transpiling jsx and ES2015 (as of 2019, ES2015 transpiling is enabled by preset-env).
 
 ## Writing the component(s)
-Well, have fun developing your components. You can still 
+Well, have fun developing your components. You can still test your react component by `npm start`.
 
 ## Deploying on github
 Simply:
