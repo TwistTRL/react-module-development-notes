@@ -78,7 +78,6 @@ react-componentX
     "start": "react-scripts start",
     "build": "react-scripts build",
     "dist": "export NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src/lib --out-dir dist --copy-files",
-    "install": "npm run dist",
     "test": "react-scripts build",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
@@ -135,7 +134,7 @@ This change reflect that:
 Add the following lines to 
 ```
     "dist": "export NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src/lib --out-dir dist --copy-files",
-    "install": "npm run dist",
+~~    "install": "npm run dist",~~
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
 ```
@@ -145,7 +144,7 @@ npm run dist     # Build `/dist` folder for distribution
 npm run predeploy   # Equivalent to `npm run build`
 npm run deploy   # Use gh-pages to push a second github.io branch to the repository
 ```
-In addition `npm install` is now hooked with `npm run dist`. You can count on the dist script to run when you run `npm install` inside the package, or when you install this package from another project. In other word, the dist script automatically transpiles your package when installed.
+~~In addition `npm install` is now hooked with `npm run dist`. You can count on the dist script to run when you run `npm install` inside the package, or when you install this package from another project. In other word, the dist script automatically transpiles your package when installed.~~ (Turns out, install script is a bad idea. In my own experience, install script puts additional requirement on parent project: whoever that is going to install this package, will require installing @babel v7.x. It is better to transpile the `src` into `dist` and simply distribute that.)
 As you can probably tell, everything in `src/lib` is transpiled and moved to `dist` folder for distribution. Therefore, you should write you components in `src/lib`, but still you can write react app outside of `src/lib`. The react app can import components from `src/lib` and run as usual using `npm start` and deploy as usual using `npm deploy`.
 
 ## Set up babel
@@ -158,6 +157,7 @@ As you can probably tell, everything in `src/lib` is transpiled and moved to `di
   },
 ```
 Non-standard js languages, such as jsx, or the latest ES 20xx may not be supported widely. These babel setting support transpiling jsx and ES2015 (as of 2019, ES2015 transpiling is enabled by preset-env).
+* Note, unlike babel v6.x, babel v7.x deprecated state-x. This is likely because writing state-0 JS code is no longer a "cool" thing. So, stop writing state-0 JS code if possible.
 
 ## Writing the component(s)
 Well, have fun developing your components. You can still test your react component by `npm start`.
