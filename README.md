@@ -25,29 +25,10 @@ react-componentX
   "name": "_____",
   "version": "0.1.0",
   "description": "...",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/___/___.git"
-  },
-  "author": "_____",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/___/___/issues"
   },
   "dependencies": {
     "____": "_____"
@@ -68,6 +49,18 @@ react-componentX
     "react-router-dom": "^5.0.0",
     "react-scripts": "^3.0.1"
   },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "babel": {
     "presets": [
       "@babel/preset-react",
@@ -83,9 +76,16 @@ react-componentX
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "homepage": "https://___.github.io/___"
+  "homepage": "https://___.github.io/___",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/___/___.git"
+  },
+  "author": "_____",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/___/___/issues"
+  }
 }
 ```
 
